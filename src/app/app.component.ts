@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, ViewEncapsulation} from '@angular/core';
+import {ClassBinder} from "./services/class-binder.service";
 
 @Component({
-  selector: 'app-root',
+  selector: 'fitg-root',
   standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  encapsulation: ViewEncapsulation.None,
+  providers: [ClassBinder]
 })
 export class AppComponent {
-  title = 'fitg';
+  constructor(classBinder: ClassBinder) {
+    classBinder.bind('fitg-root');
+  }
 }
