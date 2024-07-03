@@ -1,5 +1,5 @@
 import {
-  Component,
+  Component, effect,
   ElementRef,
   forwardRef, Input,
   signal,
@@ -40,9 +40,19 @@ export class InputComponent implements ControlValueAccessor {
 
   private _onChange!: (value: string) => void;
   private _onTouched!: (value: string) => void;
+  private _isPopulated = false;
 
   constructor(private _classBinder: ClassBinder) {
     _classBinder.bind('ui-input');
+    this._setEditable();
+
+    setTimeout(() => {
+      this.isDisabled.set(true)
+    }, 3000)
+  }
+
+  get isPopulated(): boolean {
+    return this._isPopulated;
   }
 
   /**
@@ -51,6 +61,8 @@ export class InputComponent implements ControlValueAccessor {
    * @param event
    */
   public onKeyDown(event: KeyboardEvent): void {
+    this._isPopulated = true;
+
     if(!this.value.length) {
       this.inputEl.nativeElement.innerHTML = '';
       this.value = event.key;
@@ -85,5 +97,12 @@ export class InputComponent implements ControlValueAccessor {
 
   public registerOnTouched(fn: () => void) {
     this._onTouched = fn;
+  }
+
+  private _setEditable(): void {
+    effect(() => {
+      const isDisabled = this.isDisabled();
+      this.inputEl.nativeElement.contentEditable = isDisabled ? 'false' : 'true';
+    });
   }
 }

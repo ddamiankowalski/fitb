@@ -2,8 +2,9 @@
   #inputEl
   type="text"
   class="ui-input__input"
+  [class.ui-input__input--populated]="isPopulated"
+  [class.ui-input__input--disabled]="isDisabled()"
   (keydown)="onKeyDown($event)"
   spellcheck="false"
-  contenteditable
   role="textbox"
 >{{ placeholder }}</span>
