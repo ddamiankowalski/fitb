@@ -1,0 +1,21 @@
+.ui-input {
+  position: relative;
+
+  &__input {
+    all: unset;
+    position: relative;
+    height: 1.25rem;
+    padding: 0 0.5rem;
+    font-size: 1rem;
+    color: rgb(104, 113, 150);
+    font-weight: 400;
+    caret-color: transparent;
+    transition: background-color .3s ease;
+    background-color: rgba(216, 220, 235, 0.3);
+    border-radius: 0.3125rem;
+
+    &--populated {
+      color: rgb(62, 64, 219);
+    }
+  }
+}
