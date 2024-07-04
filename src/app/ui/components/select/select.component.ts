@@ -91,7 +91,9 @@ export class SelectComponent implements ControlValueAccessor {
     this.isFocused.set(true);
   }
 
-  public writeValue(value: string): void {}
+  public writeValue(value: string): void {
+    this.selected.set(value);
+  }
 
   public setDisabledState(isDisabled: boolean) {
     this.isDisabled.set(isDisabled);
