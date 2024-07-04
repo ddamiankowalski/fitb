@@ -72,19 +72,13 @@ export class InputComponent implements ControlValueAccessor {
     if(!this.value.length) {
       this.inputEl.nativeElement.innerHTML = '';
       this.value = event.key;
-
-      if(this._onChange) {
-        this._onChange(this.value);
-      }
+      this._onChange(this.value);
       return;
     }
 
     setTimeout(() => {
       this.value = this.inputEl.nativeElement.innerHTML;
-
-      if(this._onChange) {
-        this._onChange(this.value);
-      }
+      this._onChange(this.value);
     })
   }
 
