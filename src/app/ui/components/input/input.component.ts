@@ -59,6 +59,13 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   /**
+   * On click callback.
+   */
+  public onClick(): void {
+    this.inputEl.nativeElement.focus();
+  }
+
+  /**
    * Callback to be called when value changes.
    *
    * @param event

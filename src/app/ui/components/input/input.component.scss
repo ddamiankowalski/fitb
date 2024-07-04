@@ -5,8 +5,8 @@
   white-space: nowrap;
 
   &__input {
-    all: unset;
     display: block;
+    outline: none;
     position: relative;
     height: 100%;
     padding: 0.1875rem 0.5rem;

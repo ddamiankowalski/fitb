@@ -1,9 +1,12 @@
 <span
   #inputEl
+  contenteditable="true"
   type="text"
+  tabindex="0"
   class="ui-input__input"
   [class.ui-input__input--populated]="isPopulated"
   [class.ui-input__input--disabled]="isDisabled()"
+  (click)="onClick()"
   (keydown)="onKeyDown($event)"
   spellcheck="false"
   role="textbox"
