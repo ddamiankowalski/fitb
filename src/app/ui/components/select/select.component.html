@@ -1,18 +1,13 @@
 <div class="ui-select__wrapper" ngbDropdown [autoClose]="true" (openChange)="onOpenChange($event)">
-  <button class="ui-select__toggle" (focus)="onFocus()" ngbDropdownToggle [disabled]="isDisabled()">Select action type</button>
+  <button class="ui-select__toggle" (focus)="onFocus()" ngbDropdownToggle [disabled]="isDisabled()">{{ selected() || placeholder() }}</button>
 
   <div class="ui-select__menu" ngbDropdownMenu>
-    <button class="ui-select__item-wrapper" ngbDropdownItem>
-      <div class="ui-select__item">Check and validate data</div>
-    </button>
-    <button class="ui-select__item-wrapper" ngbDropdownItem>
-      <div class="ui-select__item">Check and validate data</div>
-    </button>
-    <button class="ui-select__item-wrapper" ngbDropdownItem>
-      <div class="ui-select__item">Check and validate data</div>
-    </button>
-    <button class="ui-select__item-wrapper" ngbDropdownItem>
-      <div class="ui-select__item">Check and validate data</div>
-    </button>
+
+    @for (option of options(); track option.label) {
+      <button (click)="onOptionClick(option.label)" class="ui-select__item-wrapper" ngbDropdownItem>
+        <div class="ui-select__item">{{ option.label }}</div>
+      </button>
+    }
+
   </div>
 </div>

@@ -1,13 +1,18 @@
 import {
-  AfterViewInit,
   Component, effect,
-  forwardRef,
-  signal, ViewChild,
+  forwardRef, input,
+  signal,
   ViewEncapsulation
 } from '@angular/core';
 import {ClassBinder} from "../../../services/class-binder.service";
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {NgbDropdown, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
+import { NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
+
+interface ISelectOption {
+  label: string;
+}
+
+type SelectOptions = ISelectOption[];
 
 @Component({
   selector: 'ui-select',
@@ -29,10 +34,30 @@ import {NgbDropdown, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
  * Select component that implements a control value accessor in order to be able to use it inside
  * Angular ReactiveForms API (formgroup, formarray, formcontrol)
  */
-export class SelectComponent implements ControlValueAccessor, AfterViewInit {
-  @ViewChild(NgbDropdown) dropdown!: NgbDropdown;
+export class SelectComponent implements ControlValueAccessor {
+  /**
+   * Input signal containing the placeholder for the select.
+   */
+  public placeholder = input<string>('This is a placeholder');
 
+  /**
+   * Input signal with the options to be displayed inside the component.
+   */
+  public options = input<SelectOptions>([]);
+
+  /**
+   * Selected option, initially null
+   */
+  public selected = signal<string | null>(null);
+
+  /**
+   * Signal indicating whether select input is disabled
+   */
   public isDisabled = signal<boolean>(false);
+
+  /**
+   * Signal indicating whether select is focused
+   */
   public isFocused = signal<boolean>(false);
 
   private _onChange!: (value: string) => void;
@@ -42,12 +67,12 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
     _classBinder.bind('ui-select');
 
     effect(() =>
-      _classBinder.conditionalBind(this.isFocused(), 'ui-select--focused')
+      _classBinder.conditionalBind(this.isFocused() || !!this.selected(), 'ui-select--focused')
     );
   }
 
-  public ngAfterViewInit(): void {
-    console.log(this.dropdown)
+  public onOptionClick(option: string): void {
+    this.selected.set(option);
   }
 
   /**
