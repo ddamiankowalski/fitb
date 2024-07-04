@@ -39,7 +39,7 @@ export class InputComponent implements ControlValueAccessor {
   public isDisabled = signal<boolean>(false);
 
   private _onChange!: (value: string) => void;
-  private _onTouched!: (value: string) => void;
+  private _onTouched!: () => void;
   private _isPopulated = false;
 
   constructor(private _classBinder: ClassBinder) {
@@ -49,6 +49,13 @@ export class InputComponent implements ControlValueAccessor {
 
   get isPopulated(): boolean {
     return this._isPopulated;
+  }
+
+  /**
+   * On focus callback.
+   */
+  public onFocus(): void {
+    this._onTouched();
   }
 
   /**
@@ -120,4 +127,6 @@ export class InputComponent implements ControlValueAccessor {
       this.inputEl.nativeElement.contentEditable = isDisabled ? 'false' : 'true';
     });
   }
+
+  protected readonly onfocus = onfocus;
 }

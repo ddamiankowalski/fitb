@@ -61,7 +61,7 @@ export class SelectComponent implements ControlValueAccessor {
   public isFocused = signal<boolean>(false);
 
   private _onChange!: (value: string) => void;
-  private _onTouched!: (value: string) => void;
+  private _onTouched!: () => void;
 
   constructor(private _classBinder: ClassBinder) {
     _classBinder.bind('ui-select');
@@ -71,8 +71,9 @@ export class SelectComponent implements ControlValueAccessor {
     );
   }
 
-  public onOptionClick(option: string): void {
-    this.selected.set(option);
+  public onOptionClick(value: string): void {
+    this.selected.set(value);
+    this._onChange(value)
   }
 
   /**
@@ -89,6 +90,7 @@ export class SelectComponent implements ControlValueAccessor {
    */
   public onFocus(): void {
     this.isFocused.set(true);
+    this._onTouched();
   }
 
   public writeValue(value: string): void {
