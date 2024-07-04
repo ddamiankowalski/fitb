@@ -38,8 +38,8 @@ export class InputComponent implements ControlValueAccessor {
   public value = '';
   public isDisabled = signal<boolean>(false);
 
-  private _onChange!: (value: string) => void;
-  private _onTouched!: () => void;
+  private _onChange: (value: string) => void = () => {};
+  private _onTouched: () => void = () => {};
   private _isPopulated = false;
 
   constructor(private _classBinder: ClassBinder) {

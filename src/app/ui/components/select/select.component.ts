@@ -60,8 +60,8 @@ export class SelectComponent implements ControlValueAccessor {
    */
   public isFocused = signal<boolean>(false);
 
-  private _onChange!: (value: string) => void;
-  private _onTouched!: () => void;
+  private _onChange: (value: string) => void = () => {};
+  private _onTouched: () => void = () => {};
 
   constructor(private _classBinder: ClassBinder) {
     _classBinder.bind('ui-select');
