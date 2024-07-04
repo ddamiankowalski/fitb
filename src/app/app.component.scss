@@ -3,6 +3,9 @@
   height: 100%;
 
   &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     position: absolute;
     top: 50%;
     left: 50%;

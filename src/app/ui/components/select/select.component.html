@@ -1,0 +1,18 @@
+<div class="ui-select__wrapper" ngbDropdown [autoClose]="true" (openChange)="onOpenChange($event)">
+  <button class="ui-select__toggle" (focus)="onFocus()" ngbDropdownToggle [disabled]="isDisabled()">Select action type</button>
+
+  <div class="ui-select__menu" ngbDropdownMenu>
+    <button class="ui-select__item-wrapper" ngbDropdownItem>
+      <div class="ui-select__item">Check and validate data</div>
+    </button>
+    <button class="ui-select__item-wrapper" ngbDropdownItem>
+      <div class="ui-select__item">Check and validate data</div>
+    </button>
+    <button class="ui-select__item-wrapper" ngbDropdownItem>
+      <div class="ui-select__item">Check and validate data</div>
+    </button>
+    <button class="ui-select__item-wrapper" ngbDropdownItem>
+      <div class="ui-select__item">Check and validate data</div>
+    </button>
+  </div>
+</div>

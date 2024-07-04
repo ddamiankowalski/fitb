@@ -45,10 +45,6 @@ export class InputComponent implements ControlValueAccessor {
   constructor(private _classBinder: ClassBinder) {
     _classBinder.bind('ui-input');
     this._setEditable();
-
-    setTimeout(() => {
-      this.isDisabled.set(true)
-    }, 3000)
   }
 
   get isPopulated(): boolean {
@@ -61,8 +57,11 @@ export class InputComponent implements ControlValueAccessor {
    * @param event
    */
   public onKeyDown(event: KeyboardEvent): void {
-    this._isPopulated = true;
+    if(!this._isValid(event)) {
+      return;
+    }
 
+    this._isPopulated = true;
     if(!this.value.length) {
       this.inputEl.nativeElement.innerHTML = '';
       this.value = event.key;
@@ -82,6 +81,17 @@ export class InputComponent implements ControlValueAccessor {
     })
   }
 
+  /**
+   * Simple validation so that the field does not react to keyboard events
+   * that should not be registered such as Tab clicks
+   *
+   * @param event
+   * @private
+   */
+  private _isValid(event: KeyboardEvent): boolean {
+    return !['Tab'].includes(event.code);
+  }
+
   public writeValue(value: string): void {
     this.value = value;
   }
@@ -99,6 +109,11 @@ export class InputComponent implements ControlValueAccessor {
     this._onTouched = fn;
   }
 
+  /**
+   * This function sets contentEditable attribute to the html element if it is not disabled.
+   *
+   * @private
+   */
   private _setEditable(): void {
     effect(() => {
       const isDisabled = this.isDisabled();

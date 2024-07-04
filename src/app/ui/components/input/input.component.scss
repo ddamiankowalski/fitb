@@ -1,14 +1,20 @@
 .ui-input {
   position: relative;
+  height: 1.5rem;
+  display: block;
+  white-space: nowrap;
 
   &__input {
     all: unset;
+    display: block;
     position: relative;
-    height: 1.25rem;
-    padding: 0 0.5rem;
+    height: 100%;
+    padding: 0.1875rem 0.5rem;
+    box-sizing: border-box;
     font-size: 1rem;
     color: rgb(104, 113, 150);
-    font-weight: 400;
+    font-weight: 500;
+    line-height: 1rem;
     caret-color: transparent;
     background-color: rgba(216, 220, 235, 0.3);
     border-radius: 0.3125rem;
